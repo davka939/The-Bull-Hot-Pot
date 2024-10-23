@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        #weather {
+            margin-top: 20px;
+            flex: auto;
+            align-items: center;
+            align-content: center;
+            
+        }
+        #cart{
+            width: 100%;
+            height: 400px;
+            flex: auto;
+            align-items: center;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Current Weather</h1>
+    </header>
+
+    <div id="cart">
+        <section id="weather">
+            <p>Loading weather data...</p>
+        </section>
+        <button id="tokyoBtn">Tokyo</button>
+        <button id="londonBtn">London</button>
+        <button id="UlaanbaatarBtn">Ulaanbaatar</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Weather App</p>
+    </footer>
+
+    <script>
+        // Your OpenWeatherMap API key
+        
+        // Function to fetch weather data
+        async function fetchWeather(lat, lon) {
+
+            const apiKey = '8345d19fa73111dab3b788265d06f686';
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                // Extract weather data
+                const temperature = data.main.temp;
+                const description = data.weather[0].description;
+                const city = data.name;
+                const icon = data.weather[0].icon;
+
+                // Display the weather information
+                document.getElementById('weather').innerHTML = `
+                    <h2>Weather in ${city}</h2>
+                    <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="Description of the image" width="100" height="100">
+                    <p>Temperature: ${temperature}°C</p>
+                    <p>Condition: ${description}</p>
+
+                    
+                `;
+            } catch (error) {
+                document.getElementById('weather').innerHTML = '<p>Failed to load weather data.</p>';
+            }
+        }
+
+        // Add event listener to the button
+        document.getElementById('tokyoBtn').addEventListener('click', function() {
+            // Coordinates for Tokyo
+            const lat = 35.6828387;
+            const lon = 139.7594549;
+
+            // Fetch and display weather information
+            fetchWeather(lat, lon);
+        });
+
+        document.getElementById('londonBtn').addEventListener('click', function() {
+            // Coordinates for London
+            const lat = 51.5073219;
+            const lon = -0.1276474;
+
+            // Fetch and display weather information
+            fetchWeather(lat, lon);
+        });
+
+        document.getElementById('UlaanbaatarBtn').addEventListener('click', function() {
+            // Coordinates for Ulaanbatar
+            const lat = 47.9184676;
+            const lon = 106.9177016;
+
+            // Fetch and display weather information
+            fetchWeather(lat, lon);
+        });
+
+        // Fetch weather data for Ulaanbaatar when the page loads
+        fetchWeather(47.9184676, 106.9177016);
+    </script>
+
+</body>
+</html>
+
+
