@@ -1,0 +1,17 @@
+body {
+    background-color: black;
+    margin: 0px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;       /* Center items vertically */
+    justify-content: space-around;   /* Center items horizontally */
+}
+
+.Buttons a{
+    color: aliceblue;
+    background-color: transparent;
+}
+
