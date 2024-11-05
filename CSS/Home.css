@@ -10,7 +10,7 @@ header {
     justify-content: space-around;   /* Center items horizontally */
 }
 
-.Buttons button{
+.Buttons a{
     color: aliceblue;
     background-color: transparent;
 }
